@@ -1,10 +1,10 @@
-echo BUILD SCRIPT .2
+echo BUILD SCRIPT .3
 
 ##### Define functions
 bldk () {
 echo __________________________
 echo Kernel build
-make -j8 || finish "failed"
+make -j8 || finish "failed" && return
 finish "success"
 }
 
@@ -29,10 +29,9 @@ zip -r9 UPDATE-AnyKernel2.zip * -x README UPDATE-AnyKernel2.zip
 mv UPDATE-AnyKernel2.zip ../../../
 rm zImage
 cd ../../../
-
-fi
 echo ___________________
 echo Install UPDATE-AnyKernel2.zip
+fi
 return
 }
 
@@ -47,7 +46,7 @@ grep -q "eabi" <<< "$PATH" || varsnotset=true
 if [ "true" = "$varsnotset" ]
 then
 echo Setting vars.
-export SUBARCH=arm64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- export PATH=$PATH:/home/jacob/aarch64-linux-android-6.x-kernel/bin/
+export SUBARCH=arm64 ARCH=arm64 CROSS_COMPILE=aarch64-linux-android- export PATH=$PATH:/home/jacob/aarch64-linux-android-4.9-kernel-linaro/bin/
 else
 echo Env vars already set.
 fi
